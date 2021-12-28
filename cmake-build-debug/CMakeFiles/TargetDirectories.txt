@@ -1,0 +1,3 @@
+C:/Users/matan/CLionProjects/check/cmake-build-debug/CMakeFiles/check.dir
+C:/Users/matan/CLionProjects/check/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/matan/CLionProjects/check/cmake-build-debug/CMakeFiles/rebuild_cache.dir
