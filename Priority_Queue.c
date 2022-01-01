@@ -3,18 +3,10 @@
 #include "Priority_Queue.h"
 
 
-//typedef struct node {
-//    int data;
-//
-//    // Lower values indicate higher priority
-//    double weight;
-//
-//    struct node* next;
-//
-//} node;
+
 
 // Function to Create A New Node
-node* newNode(int d, double weight)
+node* newNode(int d, int weight)
 {
     node* temp = (node*)malloc(sizeof(node));
     temp->data = d;
@@ -41,7 +33,7 @@ void pop(node** head)
 }
 
 // Function to push according to priority
-void push(node** head, int d, double weight)
+void push(node** head, int d, int weight)
 {
     node* start = (*head);
 

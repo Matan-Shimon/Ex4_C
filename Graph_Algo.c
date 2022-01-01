@@ -16,7 +16,7 @@ void SetValue(struct Node ** head){
 
 }
 
-double Dijkstra (int src,int dest,struct NodeLinkedList *l) {
+int Dijkstra (int src,int dest,struct NodeLinkedList *l) {
     if (l->head == NULL) {
         return -1;
     }
@@ -37,7 +37,7 @@ double Dijkstra (int src,int dest,struct NodeLinkedList *l) {
                 Edge *niber = getallEdgesOut(l, realNode->id);
                 while (niber != NULL) {
                     if ((getNode(l, niber->dest)->tag) == 0) {
-                        double t = niber->weight + curr->weight;
+                        int t = niber->weight + curr->weight;
                         if (getNode(l, niber->dest)->weight > t) {
                             getNode(l, niber->dest)->weight = t;
                         }
@@ -49,9 +49,56 @@ double Dijkstra (int src,int dest,struct NodeLinkedList *l) {
             realNode->tag = 1;
         }
     }
+    if( getNode(l,dest)->weight==INT_MAX){
+        return -1;
+    }else{
     return getNode(l,dest)->weight;
 }
-double TSP(struct NodeLinkedList *l,int nodesNumber, int nodesArray []){
-    return -1;
 }
+
+void swap(int * a, int *b){
+     int temp = *a;
+     *a = *b;
+     *b = temp;
+}
+void TSP(struct NodeLinkedList *l,int * arr,int len,int left,int right,int *minPath) {
+    if (left==right) {
+        int min = 0;
+        int temp =0;
+        for (int i = 0; i < len-1; ++i) {
+            temp = Dijkstra(*(arr+i),*(arr+1+i),l);
+            if(temp==-1){
+                break;
+            }
+            min+= temp;
+        }
+        if(min!=0&&min<*minPath&&temp!=-1){
+            *minPath=min;
+        }
+        return;
+    }else {
+        for(int i=left;i<=right;i++) {
+            {
+
+                swap( (arr+left), (arr+i));
+                TSP(l,arr,len,left+1,right,minPath);
+                swap( (arr+left), (arr+i));
+
+            }
+        }
+    }
+}
+//int main (){
+//    NodeLinkedList l;
+//    init_LinkedListbyNumber(&l,4);
+//    addEdge(&l,0,1,1);
+//    addEdge(&l,0,2,8);
+//    addEdge(&l,0,3,7);
+//    addEdge(&l,3,1,2);
+//    addEdge(&l,1,2,21);
+//    int arr[3] = {2,3,1};
+//    int min = INT_MAX;
+//    TSP(&l,arr,3,0,2,&min);
+//    printf("%d",min);
+//}
 

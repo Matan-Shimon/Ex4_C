@@ -8,15 +8,15 @@ typedef struct node {
     int data;
 
     // Lower values indicate higher priority
-    double weight;
+    int weight;
 
     struct node* next;
 
 }node ;
-struct node* newNode(int d, double p);
+struct node* newNode(int d, int p);
 void peek( node** head,struct node * curr);
 void pop(node** head);
-void push(node** head, int d, double p);
+void push(node** head, int d, int p);
 int isEmpty(node** head);
 struct node* getnode(struct node ** head,int data);
 

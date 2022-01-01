@@ -7,7 +7,7 @@
 
 typedef struct Node {
     int id;
-    double weight;
+    int weight;
     int tag;
     struct Node * next;
     struct Edge *neighbors;
@@ -15,7 +15,7 @@ typedef struct Node {
 }Node;
 
 typedef struct Edge{
-    double  weight;
+    int  weight;
     int tag;
     int src;
     int dest;

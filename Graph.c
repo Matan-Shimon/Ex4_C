@@ -1,28 +1,7 @@
 #include "Graph.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-//typedef struct Node {
-//    int id;
-//    double weight;
-//    int tag;
-//    struct Node * next;
-//    struct Edge *neighbors;
-//    int neighborsSize;
-//}Node;
-//
-//typedef struct Edge {
-//    double weight;
-//    int tag;
-//    int src;
-//    int dest;
-//    struct Edge *next;
-//
-//}Edge;
-//
-//typedef struct NodeLinkedList {
-//    Node *head;
-//}NodeLinkedList;
+
 
 
 int addNode(struct NodeLinkedList *q, int id){
@@ -249,58 +228,10 @@ void print_graph(NodeLinkedList* l) {
     while (node!=NULL) {
         Edge *edge = node->neighbors;
         while (edge != NULL) {
-            printf("src: %d, dest: %d, weight: %f\n", edge->src, edge->dest, edge->weight);
+            printf("src: %d, dest: %d, weight: %d\n", edge->src, edge->dest, edge->weight);
             edge = edge->next;
         }
         node = node->next;
     }
 }
 
-//int main () {
-//    int len = 100;
-//    char *str = (char *) calloc(100, sizeof(char));
-//    int i = 0;
-//    int ch;
-//    while (ch != -1 && ch != '\n') {
-//        ch = getchar();
-//        str[i] = ch;
-//        i++;
-//        if (i == 100) {
-//            str = (char *) realloc(str, len * 2 * sizeof(char));
-//            len *= 2;
-//        }
-//    }
-//    int bool = 0;
-//    struct NodeLinkedList node_list;
-//    for (int j = 0; j < i; j += 2) {
-//        if (str[j] == 'A') {
-//            if (bool) {
-//                reboot_graph(&node_list);
-//            }
-//            bool = 1;
-//        } else {
-//            if (str[j - 2] == 'A') {
-//                // num of nodes
-//                str[j] = str[j] - 48;
-//                init_LinkedListbyNumber(&node_list, str[j]);
-//            } else {
-//                if (str[j] == 'n') {
-//                    int src_index = j + 2;
-//                    str[src_index] = str[src_index] - 48;
-//                    j += 4; // src
-//                    while (str[j] != 'n' && str[j] != 'B' && str[j] != 'S' && str[j] != 'T' && j < i - 1) {
-//                        str[j] = str[j] - 48;
-//                        str[j + 2] = str[j + 2] - 48;
-//                        addEdge(&node_list, str[src_index], str[j], str[j + 2]);
-//                        j += 4;
-//                    }
-//                    j -= 2;
-//                } else {
-//                    if (str[j] == 'B') {
-//
-//                    }
-//                }
-//            }
-//        }
-//    }
-//    print_graph(&node_list);
