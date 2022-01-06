@@ -16,6 +16,48 @@ void SetValue(struct Node ** head){
 
 }
 
+//int Dijkstra (int src,int dest,struct NodeLinkedList *l) {
+//    if (l->head == NULL) {
+//        return -1;
+//    }
+//    SetValue(&l->head);
+//    Node * srcNode  = getNode(l,src);
+//    srcNode->weight = 0;
+//    struct node *pq = newNode(srcNode->id, srcNode->weight);
+//    struct node *curr = malloc(sizeof(struct node *));
+//    while (!(isEmpty(&pq))) {
+//        if (curr == NULL) {
+//            return -1;
+//        }
+//        peek(&pq, curr);
+//        struct Node *realNode = getNode(l, curr->data);
+//        pop(&pq);
+//        if (realNode != NULL) {
+//            if (realNode->tag != 1) {
+//                Edge *niber = getNode(l,curr->data)->neighbors;
+//                while (niber != NULL) {
+//                    if ((getNode(l, niber->dest)->tag) == 0) {
+//                        int t = niber->weight + curr->weight;
+//                        if (getNode(l, niber->dest)->weight > t) {
+//                            getNode(l, niber->dest)->weight = t;
+//                        }
+//                        push(&pq, niber->dest, t);
+//                    }
+//                    niber = niber->next;
+//                }
+//
+//            }
+//            realNode->tag = 1;
+//        }
+//    }
+//    if( getNode(l,dest)->weight==INT_MAX){
+//        free(curr);
+//        return -1;
+//    }else{
+//        free(curr);
+//    return getNode(l,dest)->weight;
+//}
+//}
 int Dijkstra (int src,int dest,struct NodeLinkedList *l) {
     if (l->head == NULL) {
         return -1;
@@ -23,28 +65,40 @@ int Dijkstra (int src,int dest,struct NodeLinkedList *l) {
     SetValue(&l->head);
     Node * srcNode  = getNode(l,src);
     srcNode->weight = 0;
-    struct node *pq = newNode(srcNode->id, srcNode->weight);
-    while (!(isEmpty(&pq))) {
-        struct node *curr = malloc(sizeof(struct node *));
-        if (curr == NULL) {
-            return -1;
+    NodeLinkedList help;
+    init_LinkedList(&help);
+    addNode(&help,-1);
+    getNode(&help,-1)->weight = 0;
+    getNode(&help,-1)->id = srcNode->id;
+    while (help.head!=NULL) {
+        Node *temp = help.head;
+        int min= INT_MAX;
+        int index =0;
+        while (temp!=NULL){
+            if(temp->weight<min){
+                min = temp->weight;
+                index = temp->id;
+            }
+            temp =temp->next;
         }
-        peek(&pq, curr);
-        struct Node *realNode = getNode(l, curr->data);
-        pop(&pq);
+        removeNode(&help,index);
+        struct Node *realNode = getNode(l,index);
         if (realNode != NULL) {
             if (realNode->tag != 1) {
-                Edge *niber = getallEdgesOut(l, realNode->id);
+                Edge *niber = getNode(l,realNode->id)->neighbors;
                 while (niber != NULL) {
                     if ((getNode(l, niber->dest)->tag) == 0) {
-                        int t = niber->weight + curr->weight;
+                        int t = niber->weight + realNode->weight;
                         if (getNode(l, niber->dest)->weight > t) {
                             getNode(l, niber->dest)->weight = t;
                         }
-                        push(&pq, niber->dest, t);
+                        addNode(&help,-1);
+                        getNode(&help,-1)->weight=getNode(l, niber->dest)->weight;
+                        getNode(&help,-1)->id=getNode(l, niber->dest)->id;
                     }
                     niber = niber->next;
                 }
+
             }
             realNode->tag = 1;
         }
@@ -52,9 +106,10 @@ int Dijkstra (int src,int dest,struct NodeLinkedList *l) {
     if( getNode(l,dest)->weight==INT_MAX){
         return -1;
     }else{
-    return getNode(l,dest)->weight;
+        return getNode(l,dest)->weight;
+    }
 }
-}
+
 
 void swap(int * a, int *b){
      int temp = *a;
@@ -88,17 +143,4 @@ void TSP(struct NodeLinkedList *l,int * arr,int len,int left,int right,int *minP
         }
     }
 }
-//int main (){
-//    NodeLinkedList l;
-//    init_LinkedListbyNumber(&l,4);
-//    addEdge(&l,0,1,1);
-//    addEdge(&l,0,2,8);
-//    addEdge(&l,0,3,7);
-//    addEdge(&l,3,1,2);
-//    addEdge(&l,1,2,21);
-//    int arr[3] = {2,3,1};
-//    int min = INT_MAX;
-//    TSP(&l,arr,3,0,2,&min);
-//    printf("%d",min);
-//}
 

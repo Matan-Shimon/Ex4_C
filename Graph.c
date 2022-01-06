@@ -98,12 +98,12 @@ int addEdge(struct NodeLinkedList *q,int src, int dest,int weight){
 }
 
 struct Edge  * getEdge  ( struct NodeLinkedList *l,int src,int dest){
-    Edge * temp = malloc(sizeof(struct Edge));
+//    Edge * temp = malloc(sizeof(struct Edge));
     struct Node *node = getNode(l,src);
     if(node->neighbors==NULL){
         return NULL;
     }
-    temp = node->neighbors;
+   Edge * temp = node->neighbors;
     while(temp!=NULL){
         if(temp->dest==dest){
             return temp;
@@ -116,13 +116,12 @@ struct Edge  * getEdge  ( struct NodeLinkedList *l,int src,int dest){
 
 struct Edge * getallEdgesOut( struct NodeLinkedList *l,int id){
     struct Edge * ans ;
-    Edge * temp = malloc(sizeof(struct Edge));
     struct Node *node = getNode(l,id);
     ans = (struct Edge *)malloc(sizeof(struct Edge)*node->neighborsSize);
     if(node->neighbors==NULL) {
         return NULL;
     }
-    temp = node->neighbors;
+    Edge *temp = node->neighbors;
     int i=0;
     while(i<node->neighborsSize){
         ans[i] = *temp;

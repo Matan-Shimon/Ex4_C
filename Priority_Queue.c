@@ -21,16 +21,20 @@ void  peek(node** head,struct node* curr)
 {
     curr->weight=(*head)->weight;
     curr->data=(*head)->data;
+
 }
 
 // Removes the element with the
 // highest priority form the list
 void pop(node** head)
 {
-    node* temp = *head;
-    (*head) = (*head)->next;
-    free(temp);
-}
+
+        node *temp = *head;
+        *head = temp->next;
+        free(temp);
+    }
+
+
 
 // Function to push according to priority
 void push(node** head, int d, int weight)

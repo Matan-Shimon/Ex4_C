@@ -6,9 +6,9 @@
 #include <limits.h>
 
 int main() {
+    int bool_row = 0;
     char ch;
     ch = getchar();
-
     int bool = 0;
     struct NodeLinkedList node_list;
     while (ch != -1 && ch != '\n') {
@@ -119,11 +119,16 @@ int main() {
             }
             int min = INT_MAX;
             TSP(&node_list,arr,munofNodes,0,munofNodes-1,&min);
-            if (min==INT_MAX){
-                printf("TSP shortest path: -1\n");
-            }else {
-                printf("TSP shortest path: %d\n", min);
+            if (bool_row) {
+                printf("\n");
             }
+            if (min==INT_MAX){
+                printf("TSP shortest path: -1");
+            }else {
+                printf("TSP shortest path: %d", min);
+            }
+            free(arr);
+            bool_row = 1;
         }
         else if(ch=='S'){
             int src ;
@@ -134,59 +139,18 @@ int main() {
             ch =getchar();
             ch = getchar();
             dest = ch-48;
-            double  shortDist = Dijkstra(src,dest,&node_list);
-            printf("Dijsktra shortest path: %d\n", shortDist);
+            int shortDist = Dijkstra(src,dest,&node_list);
+            if (bool_row) {
+                printf("\n");
+            }
+            bool_row = 1;
+            printf("Dijsktra shortest path: %d", shortDist);
         }else if (ch!='A'&&ch!='n'&&ch!='B'&&ch!='S'&&ch!='D'){
             ch = getchar();
 
         }
 
     }
+    reboot_graph(&node_list);
 
-//    print_graph(&node_list);
 }
-//int main () {
-//    int len = 100;
-//    char *str = (char *) calloc(100, sizeof(char));
-//    int i = 0;
-//    int ch;
-//    while (ch != -1 && ch != '\n') {
-//        ch = getchar();
-//        str[i] = ch;
-//        i++;
-//        if (i == 100) {
-//            str = (char *) realloc(str, len * 2 * sizeof(char));
-//            len *= 2;
-//        }
-//    }
-//    int bool = 0;
-//    struct NodeLinkedList node_list;
-//    for (int j = 0; j < i; j += 2) {
-//        if (str[j] == 'A') {
-//            if (bool) {
-//                reboot_graph(&node_list);
-//            }
-//            bool = 1;
-//        } else {
-//            if (str[j - 2] == 'A') {
-//                // num of nodes
-//                str[j] = str[j] - 48;
-//                init_LinkedListbyNumber(&node_list, str[j]);
-//            } else {
-//                if (str[j] == 'n') {
-//                    int src_index = j + 2;
-//                    str[src_index] = str[src_index] - 48;
-//                    j += 4; // src
-//                    while (str[j] != 'n' && str[j] != 'B' && str[j] != 'S' && str[j] != 'T' && j < i) {
-//                        str[j] = str[j] - 48;
-//                        str[j + 2] = str[j + 2] - 48;
-//                        addEdge(&node_list, str[src_index], str[j], str[j + 2]);
-//                        j += 4;
-//                    }
-//                    j -= 2;
-//                }
-//            }
-//        }
-//    }
-//    print_graph(&node_list);
-//}
