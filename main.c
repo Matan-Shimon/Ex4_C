@@ -10,6 +10,8 @@ int main() {
     char ch;
     ch = getchar();
     int bool = 0;
+
+
     struct NodeLinkedList node_list;
     while (ch != -1 && ch != '\n') {
         if (ch == 'A') {
@@ -54,7 +56,8 @@ int main() {
                     i++;
                 }
                 if (i != 0 && i % 2 == 0) {
-                    addEdge(&node_list, src, dest, weight);
+                  addEdge(&node_list, src, dest, weight);
+
                 }
                 ch = getchar();
 
@@ -103,32 +106,35 @@ int main() {
             ch =getchar();
             nodeNum= ch-48;
             removeNode(&node_list,nodeNum);
-        }else if(ch =='T'){
-            ch =getchar();
+        }else if(ch =='T') {
             ch = getchar();
-            int munofNodes = ch-48;
-            int * arr = (int*) malloc(sizeof(int)*munofNodes);
-            int i=0;
-            while (ch != -1 && ch != '\n' && ch != 'B' && ch != 'D' && ch != 'S' && ch != 'T' && ch != 'n') {
-                ch =getchar();
-                if(ch!=' '&& ch != -1 && ch != '\n' && ch != 'B' && ch != 'D' && ch != 'S' && ch != 'T' && ch != 'n') {
-                    ch = ch - 48;
-                    arr[i] = ch;
-                    i++;
+            ch = getchar();
+            int munofNodes = ch - 48;
+            int *arr = (int *) malloc(sizeof(int) * munofNodes);
+            int i = 0;
+            if (arr != NULL){
+                while (ch != -1 && ch != '\n' && ch != 'B' && ch != 'D' && ch != 'S' && ch != 'T' && ch != 'n'&&i<munofNodes) {
+                    ch = getchar();
+                    if (ch != ' ' && ch != -1 && ch != '\n' && ch != 'B' && ch != 'D' && ch != 'S' && ch != 'T' &&
+                        ch != 'n') {
+                        ch = ch - 48;
+                        arr[i] = ch;
+                        i++;
+                    }
                 }
-            }
-            int min = INT_MAX;
-            TSP(&node_list,arr,munofNodes,0,munofNodes-1,&min);
+                int min = INT_MAX;
+                TSP(&node_list, arr, munofNodes, 0, munofNodes - 1, &min);
 //            if (bool_row) {
 //                printf("\n");
 //            }
-            if (min==INT_MAX){
-                printf("TSP shortest path: -1 \n");
-            }else {
-                printf("TSP shortest path: %d \n", min);
-            }
-            free(arr);
+                if (min == INT_MAX) {
+                    printf("TSP shortest path: -1 \n");
+                } else {
+                    printf("TSP shortest path: %d \n", min);
+                }
+                free(arr);
 //            bool_row = 1;
+            }
         }
         else if(ch=='S'){
             int src ;
@@ -152,5 +158,7 @@ int main() {
 
     }
     reboot_graph(&node_list);
+    free(temp);
+
 
 }
