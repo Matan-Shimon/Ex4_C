@@ -45,7 +45,6 @@ void SetValue(struct Node ** head){
 //                    }
 //                    niber = niber->next;
 //                }
-//
 //            }
 //            realNode->tag = 1;
 //        }

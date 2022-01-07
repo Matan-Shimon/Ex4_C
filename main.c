@@ -6,7 +6,7 @@
 #include <limits.h>
 
 int main() {
-    int bool_row = 0;
+//    int bool_row = 0;
     char ch;
     ch = getchar();
     int bool = 0;
@@ -119,16 +119,16 @@ int main() {
             }
             int min = INT_MAX;
             TSP(&node_list,arr,munofNodes,0,munofNodes-1,&min);
-            if (bool_row) {
-                printf("\n");
-            }
+//            if (bool_row) {
+//                printf("\n");
+//            }
             if (min==INT_MAX){
-                printf("TSP shortest path: -1");
+                printf("TSP shortest path: -1 \n");
             }else {
-                printf("TSP shortest path: %d", min);
+                printf("TSP shortest path: %d \n", min);
             }
             free(arr);
-            bool_row = 1;
+//            bool_row = 1;
         }
         else if(ch=='S'){
             int src ;
@@ -140,11 +140,11 @@ int main() {
             ch = getchar();
             dest = ch-48;
             int shortDist = Dijkstra(src,dest,&node_list);
-            if (bool_row) {
-                printf("\n");
-            }
-            bool_row = 1;
-            printf("Dijsktra shortest path: %d", shortDist);
+//            if (bool_row) {
+//                printf("\n");
+//            }
+//            bool_row = 1;
+            printf("Dijsktra shortest path: %d \n", shortDist);
         }else if (ch!='A'&&ch!='n'&&ch!='B'&&ch!='S'&&ch!='D'){
             ch = getchar();
 
