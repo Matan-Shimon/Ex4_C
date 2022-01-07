@@ -158,7 +158,7 @@ int main() {
 
     }
     reboot_graph(&node_list);
-    free(temp);
+
 
 
 }
