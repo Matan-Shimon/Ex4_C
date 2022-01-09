@@ -1,9 +1,6 @@
 #include "Graph.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-
-
 int addNode(struct NodeLinkedList *q, int id){
     Node * newnode = malloc(sizeof(struct Node));
     newnode->id = id;
@@ -20,20 +17,22 @@ int addNode(struct NodeLinkedList *q, int id){
     while(temp!=NULL){
         if(temp->id==id&&temp->neighbors!=NULL){
             if(temp->neighborsSize==1){
-                free(temp);
+                free(temp->neighbors);
                 temp->neighbors=NULL;
                 temp->neighborsSize=0;
             }else {
                 struct Edge *curr = temp->neighbors;
-                struct Edge *next = temp->neighbors->next;
-                while (next != NULL) {
-                    curr = next;
-                    next = next->next;
-                    free(curr);
+                while (curr != NULL) {
+                    struct Edge *temp2 = curr;
+                    curr = curr->next;
+                    free(temp2);
+
                 }
+                curr =NULL;
             }
             temp->neighborsSize=0;
             temp->neighbors=NULL;
+
         }
         if(temp->next==NULL){
             temp->next=newnode;
@@ -86,7 +85,7 @@ int addEdge(struct NodeLinkedList *q,int src, int dest,int weight){
         if(tempE->next==NULL){
             tempE->next=newedge;
             temp->neighborsSize++;
-            break;
+            return 1;
         }
         tempE =tempE->next;
     }
@@ -103,7 +102,7 @@ struct Edge  * getEdge  ( struct NodeLinkedList *l,int src,int dest){
     if(node->neighbors==NULL){
         return NULL;
     }
-   Edge * temp = node->neighbors;
+    Edge * temp = node->neighbors;
     while(temp!=NULL){
         if(temp->dest==dest){
             return temp;
@@ -151,7 +150,7 @@ void removeEdge(struct NodeLinkedList *l,int src,int dest) {
             *niber = temp->next;
             node->neighborsSize--;
             free(temp);
-            break;
+            return;
         }
         temp=temp->next;
         niber = &((*niber)->next);
@@ -166,12 +165,11 @@ void removeNode(struct NodeLinkedList *l,int id) {
     }
     // deleting out edges
     if (node->neighborsSize != 0) {
-        struct Edge **niber = &node->neighbors;
         struct Edge *temp = node->neighbors;
         while (temp != NULL) {
-            *niber = temp->next;
+            Edge *next = temp->next;
             removeEdge(l, temp->src, temp->dest);
-            temp = *niber;
+            temp = next;
         }
     }
     // deleting in edges
@@ -179,11 +177,11 @@ void removeNode(struct NodeLinkedList *l,int id) {
     while (node1!=NULL) {
         Edge* edge1 = node1->neighbors;
         while (edge1!=NULL) {
-            Edge* edge2 = edge1->next;
             if (edge1->dest == id) {
                 removeEdge(l, edge1->src, edge1->dest);
+                break;
             }
-            edge1 = edge2;
+            edge1 = edge1->next;
         }
         node1 = node1->next;
     }
@@ -196,7 +194,7 @@ void removeNode(struct NodeLinkedList *l,int id) {
             return;
         }
         while (*temp != NULL) {
-            if ((*temp)->id == id) {
+            if (temp2->id == id) {
                 *temp = temp2->next;
                 free(temp2);
                 break;
@@ -233,4 +231,3 @@ void print_graph(NodeLinkedList* l) {
         node = node->next;
     }
 }
-
